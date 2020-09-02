@@ -1,0 +1,3285 @@
+{
+	"info": {
+		"_postman_id": "796acbbe-67bf-484a-bb63-438387ead817",
+		"name": "sgbd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "basic",
+			"item": [
+				{
+					"name": "reset db",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d29000fe-b58b-480b-82b5-03b1a1be9e08",
+								"exec": [
+									"pm.test(\"DB Reseted\", function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "carte",
+			"item": [
+				{
+					"name": "caracteristique",
+					"item": [
+						{
+							"name": "GET All Caracteristiques",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b8b9e4ae-9456-487f-8111-1f970a431a81",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql([",
+											"    {",
+											"        \"numero_caracteristique\": 1,",
+											"        \"nom_caracteristique\": \"force\"",
+											"    },",
+											"    {",
+											"        \"numero_caracteristique\": 2,",
+											"        \"nom_caracteristique\": \"vitesse\"",
+											"    },",
+											"    {",
+											"        \"numero_caracteristique\": 3,",
+											"        \"nom_caracteristique\": \"defense\"",
+											"    },",
+											"    {",
+											"        \"numero_caracteristique\": 4,",
+											"        \"nom_caracteristique\": \"attaque\"",
+											"    },",
+											"    {",
+											"        \"numero_caracteristique\": 5,",
+											"        \"nom_caracteristique\": \"mana\"",
+											"    }]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST New Caracteristique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1a29f767-93d3-4ad7-871c-2aa13272ef39",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(201); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_caracteristique\": 6,",
+											"        \"nom_caracteristique\": \"charme\"",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nom_caracteristique\": \"charme\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET One Caracteristique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "bbe16559-42f7-4ed8-bd03-54c61f82b4b8",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_caracteristique\": 6,",
+											"        \"nom_caracteristique\": \"charme\"",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE Caracteristique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd7249bf-0fdd-4553-8937-a6c9281290a5",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_caracteristique\": 6,",
+											"        \"nom_caracteristique\": \"elegance\"",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nom_caracteristique\": \"elegance\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET One Caracteristique Updated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8f2f9213-5794-4b0c-8512-44fc4a2b4143",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_caracteristique\": 6,",
+											"        \"nom_caracteristique\": \"elegance\"",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Caracteristique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "33a70d96-3cda-4f54-b9cf-495ab0a061d0",
+										"exec": [
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(204); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Deleted Caracteristique",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "635668d3-d78d-4100-a514-d85880cb112f",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/caracteristique/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"caracteristique",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "link",
+					"item": [
+						{
+							"name": "GET All Links",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8fd54cde-4973-4578-9050-14f07bb7a88a",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql([",
+											"    {",
+											"        \"numero_carte\": 1,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 3",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 2,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 6",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 3,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 9",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 5,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 9",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 6,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 6",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 7,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 3",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 1,",
+											"        \"numero_caracteristique\": 3,",
+											"        \"niveau\": 1",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 1,",
+											"        \"numero_caracteristique\": 4,",
+											"        \"niveau\": 10",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 4,",
+											"        \"numero_caracteristique\": 1,",
+											"        \"niveau\": 999",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 4,",
+											"        \"numero_caracteristique\": 2,",
+											"        \"niveau\": 999",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 4,",
+											"        \"numero_caracteristique\": 3,",
+											"        \"niveau\": 999",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 4,",
+											"        \"numero_caracteristique\": 4,",
+											"        \"niveau\": 999",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 4,",
+											"        \"numero_caracteristique\": 5,",
+											"        \"niveau\": 999",
+											"    }]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/link",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET All Cards with caracteristiques",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8fd54cde-4973-4578-9050-14f07bb7a88a",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"    \"numero_carte\": 1,",
+											"    \"description_carte\": \"Attaque le méchant\",",
+											"    \"type_carte\": \"sort\",",
+											"    \"titre_carte\": \"Justicier\",",
+											"    \"famille_carte\": \"rouge\",",
+											"    \"image_carte\": \"https://i.pinimg.com/originals/ee/2d/64/ee2d6458d09ed10e1be0e4476f4ac658.jpg\",",
+											"    \"caracteristiques\": [",
+											"        {",
+											"            \"numero_caracteristique\": 3,",
+											"            \"nom_caracteristique\": \"defense\",",
+											"            \"niveau\": 1",
+											"        },",
+											"        {",
+											"            \"numero_caracteristique\": 4,",
+											"            \"nom_caracteristique\": \"attaque\",",
+											"            \"niveau\": 10",
+											"        },",
+											"        {",
+											"            \"numero_caracteristique\": 5,",
+											"            \"nom_caracteristique\": \"mana\",",
+											"            \"niveau\": 3",
+											"        }",
+											"    ]});",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/1/caracteristique",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"1",
+										"caracteristique"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST New Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "96151eec-4b1a-4571-b511-275b8492f44b",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(201); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_carte\": 5,",
+											"        \"numero_caracteristique\": 2,",
+											"        \"niveau\": 5",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"niveau\": 5 \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Created Linked",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2b723395-155e-4d63-8156-b78afcf10d55",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_carte\": 5,",
+											"        \"numero_caracteristique\": 2,",
+											"        \"niveau\": 5",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Try to create same Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8dc48dfb-8762-4005-8206-846738f1f41e",
+										"exec": [
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(400); ",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"niveau\": 5 \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7133f42a-db43-4d9c-809c-e3cfc293dc0c",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_carte\": 5,",
+											"        \"numero_caracteristique\": 2,",
+											"        \"niveau\": 15",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"niveau\": 15\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Updated Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b5e1f1c9-6ca6-4a26-abd6-ce1988fe9aa3",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body response is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_carte\": 5,",
+											"        \"numero_caracteristique\": 2,",
+											"        \"niveau\": 15",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b7a5d34d-7768-41b1-b069-2c53ca5f144f",
+										"exec": [
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(204); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Deleted Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1ae38df2-f0db-4b6c-a959-0fe70ecfb47f",
+										"exec": [
+											"pm.test('Carte status created', function () { ",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/carte/link/5/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"carte",
+										"link",
+										"5",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET All Cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "267d951d-194c-47e7-8230-e2242c41a524",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([",
+									"    {",
+									"        \"numero_carte\": 1,",
+									"        \"description_carte\": \"Attaque le méchant\",",
+									"        \"type_carte\": \"sort\",",
+									"        \"titre_carte\": \"Justicier\",",
+									"        \"famille_carte\": \"rouge\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/ee/2d/64/ee2d6458d09ed10e1be0e4476f4ac658.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 2,",
+									"        \"description_carte\": \"Défend le chateau\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Defenseur\",",
+									"        \"famille_carte\": \"vert\",",
+									"        \"image_carte\": \"https://images.saatchiart.com/saatchi/870022/art/3454893/2524780-ISDBAXTE-7.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 3,",
+									"        \"description_carte\": \"Sacrifie une bête\",",
+									"        \"type_carte\": \"sacrifice\",",
+									"        \"titre_carte\": \"Sataniste\",",
+									"        \"famille_carte\": \"rouge\",",
+									"        \"image_carte\": \"https://pm1.narvii.com/6991/ea1baf640f021755119862f29850e8f4e1f0f4bbr1-1344-2048v2_hq.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 4,",
+									"        \"description_carte\": \"Lance Pikachu\",",
+									"        \"type_carte\": \"creature\",",
+									"        \"titre_carte\": \"Pikachu\",",
+									"        \"famille_carte\": \"bleu\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/f5/1d/08/f51d08be05919290355ac004cdd5c2d6.png\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 5,",
+									"        \"description_carte\": \"Va au cimetiere\",",
+									"        \"type_carte\": \"movement\",",
+									"        \"titre_carte\": \"Fossoyeur\",",
+									"        \"famille_carte\": \"jaune\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/36/c1/94/36c19446d136cae841ca529bd48f6648.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 6,",
+									"        \"description_carte\": \"Guérit une carte\",",
+									"        \"type_carte\": \"sort\",",
+									"        \"titre_carte\": \"Guerir\",",
+									"        \"famille_carte\": \"vert\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/e0/40/fb/e040fb8ba1da972b9e878425b30166a1.png\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 7,",
+									"        \"description_carte\": \"Consomme defense\",",
+									"        \"type_carte\": \"sort\",",
+									"        \"titre_carte\": \"Jinzo\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://thumbs.dreamstime.com/b/joust-victory-medieval-knights-participating-one-them-wins-powerful-impact-breaking-his-weapon-his-opponent-s-97950517.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 8,",
+									"        \"description_carte\": \"Détruit mechant\",",
+									"        \"type_carte\": \"destruction\",",
+									"        \"titre_carte\": \"Polier\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://66.media.tumblr.com/6c9391745d9455d18c9914199ec15a19/tumblr_pxoe9y7TR51qm1bz4o1_400.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 9,",
+									"        \"description_carte\": \"Crée defense\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Pilgrim\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://d1s0ws440m13mk.cloudfront.net/original/3X/4/8/484c96d9d0dfd28a8e818e0574c0287202a2e222.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 10,",
+									"        \"description_carte\": \"Réssucite une autre carte\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Aumonier\",",
+									"        \"famille_carte\": \"blanc\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/77/a1/26/77a12608b4081a4d15bb8d16d53fd49a.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 11,",
+									"        \"description_carte\": \"GLOUGLOU\",",
+									"        \"type_carte\": \"attaque\",",
+									"        \"titre_carte\": \"Dindon\",",
+									"        \"famille_carte\": \"Oiseau\",",
+									"        \"image_carte\": \"https://www.mypokecard.com/fr/Galerie/my/galery/skd7WRMFnwCd.jpg\"",
+									"    }",
+									"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Cards Filtered",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "267d951d-194c-47e7-8230-e2242c41a524",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([",
+									"    {",
+									"        \"numero_carte\": 1,",
+									"        \"description_carte\": \"Attaque le méchant\",",
+									"        \"type_carte\": \"sort\",",
+									"        \"titre_carte\": \"Justicier\",",
+									"        \"famille_carte\": \"rouge\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/ee/2d/64/ee2d6458d09ed10e1be0e4476f4ac658.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 6,",
+									"        \"description_carte\": \"Guérit une carte\",",
+									"        \"type_carte\": \"sort\",",
+									"        \"titre_carte\": \"Guerir\",",
+									"        \"famille_carte\": \"vert\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/e0/40/fb/e040fb8ba1da972b9e878425b30166a1.png\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 7,",
+									"        \"description_carte\": \"Consomme defense\",",
+									"        \"type_carte\": \"sort\",",
+									"        \"titre_carte\": \"Jinzo\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://thumbs.dreamstime.com/b/joust-victory-medieval-knights-participating-one-them-wins-powerful-impact-breaking-his-weapon-his-opponent-s-97950517.jpg\"",
+									"    }",
+									"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte?type=sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "sort"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Lonely Cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "267d951d-194c-47e7-8230-e2242c41a524",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([",
+									"    {",
+									"        \"numero_carte\": 10,",
+									"        \"description_carte\": \"Réssucite une autre carte\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Aumonier\",",
+									"        \"famille_carte\": \"blanc\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/77/a1/26/77a12608b4081a4d15bb8d16d53fd49a.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 9,",
+									"        \"description_carte\": \"Crée defense\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Pilgrim\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://d1s0ws440m13mk.cloudfront.net/original/3X/4/8/484c96d9d0dfd28a8e818e0574c0287202a2e222.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 8,",
+									"        \"description_carte\": \"Détruit mechant\",",
+									"        \"type_carte\": \"destruction\",",
+									"        \"titre_carte\": \"Polier\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://66.media.tumblr.com/6c9391745d9455d18c9914199ec15a19/tumblr_pxoe9y7TR51qm1bz4o1_400.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 11,",
+									"        \"description_carte\": \"GLOUGLOU\",",
+									"        \"type_carte\": \"attaque\",",
+									"        \"titre_carte\": \"Dindon\",",
+									"        \"famille_carte\": \"Oiseau\",",
+									"        \"image_carte\": \"https://www.mypokecard.com/fr/Galerie/my/galery/skd7WRMFnwCd.jpg\"",
+									"    }",
+									"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte?lonely=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte"
+							],
+							"query": [
+								{
+									"key": "lonely",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Lonely Cards Filtered",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "267d951d-194c-47e7-8230-e2242c41a524",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([",
+									"    {",
+									"        \"numero_carte\": 10,",
+									"        \"description_carte\": \"Réssucite une autre carte\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Aumonier\",",
+									"        \"famille_carte\": \"blanc\",",
+									"        \"image_carte\": \"https://i.pinimg.com/originals/77/a1/26/77a12608b4081a4d15bb8d16d53fd49a.jpg\"",
+									"    },",
+									"    {",
+									"        \"numero_carte\": 9,",
+									"        \"description_carte\": \"Crée defense\",",
+									"        \"type_carte\": \"defense\",",
+									"        \"titre_carte\": \"Pilgrim\",",
+									"        \"famille_carte\": \"gris\",",
+									"        \"image_carte\": \"https://d1s0ws440m13mk.cloudfront.net/original/3X/4/8/484c96d9d0dfd28a8e818e0574c0287202a2e222.jpg\"",
+									"    }",
+									"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte?lonely=true&type=defense",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte"
+							],
+							"query": [
+								{
+									"key": "lonely",
+									"value": "true"
+								},
+								{
+									"key": "type",
+									"value": "defense"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST New Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "819f0eb4-6fb1-4b4b-8817-d49e92a477dd",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(201); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"    \"numero_carte\": 12,",
+									"    \"description_carte\": \"Robot\",",
+									"    \"type_carte\": \"creature\",",
+									"    \"titre_carte\": \"Robocop\",",
+									"    \"famille_carte\": \"gris\",",
+									"    \"image_carte\": null",
+									"});",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description_carte\": \"Robot\",\n    \"type_carte\": \"creature\",\n    \"titre_carte\": \"Robocop\",\n    \"famille_carte\": \"gris\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/carte",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b3245fe-8094-4a03-bb7f-6a60ae460977",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"    \"numero_carte\": 12,",
+									"    \"description_carte\": \"Robot\",",
+									"    \"type_carte\": \"creature\",",
+									"    \"titre_carte\": \"Robocop\",",
+									"    \"famille_carte\": \"gris\",",
+									"    \"image_carte\": null",
+									"});",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b4cf4ced-de19-471c-9a5c-da509b210eb3",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"    \"numero_carte\": 12,",
+									"    \"description_carte\": \"Cette carte appelle le robot le plus faible du jeu\",",
+									"    \"type_carte\": \"creature\",",
+									"    \"titre_carte\": \"Robocop\",",
+									"    \"famille_carte\": \"bleu\",",
+									"    \"image_carte\": null",
+									"});",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description_carte\": \"Cette carte appelle le robot le plus faible du jeu\",\n    \"famille_carte\": \"bleu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/carte/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Card Updated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd1d4595-4c22-4098-9b24-be9debca85bf",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"    \"numero_carte\": 12,",
+									"    \"description_carte\": \"Cette carte appelle le robot le plus faible du jeu\",",
+									"    \"type_carte\": \"creature\",",
+									"    \"titre_carte\": \"Robocop\",",
+									"    \"famille_carte\": \"bleu\",",
+									"    \"image_carte\": null",
+									"});",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb13595e-7b10-4998-b8b7-6183e346f937",
+								"exec": [
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(204); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Deleted Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a8b948b-f95d-4f05-8b87-f920fcfcc6b6",
+								"exec": [
+									"pm.test('Request fails with 404', function () { ",
+									"    pm.response.to.have.status(404); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/carte/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"carte",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "joueur",
+			"item": [
+				{
+					"name": "deck",
+					"item": [
+						{
+							"name": "GET All Joueur Links",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql([",
+											"    {",
+											"        \"numero_joueur\": 1,",
+											"        \"numero_deck\": 1",
+											"    },",
+											"    {",
+											"        \"numero_joueur\": 1,",
+											"        \"numero_deck\": 4",
+											"    },",
+											"    {",
+											"        \"numero_joueur\": 3,",
+											"        \"numero_deck\": 2",
+											"    },",
+											"    {",
+											"        \"numero_joueur\": 2,",
+											"        \"numero_deck\": 1",
+											"    },",
+											"    {",
+											"        \"numero_joueur\": 4,",
+											"        \"numero_deck\": 3",
+											"    }]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/joueur/link",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"joueur",
+										"link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST New link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(201); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_joueur\": 1,",
+											"        \"numero_deck\": 2",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/joueur/link/1/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"joueur",
+										"link",
+										"1",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Single Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_joueur\": 1,",
+											"        \"numero_deck\": 2",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/joueur/link/1/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"joueur",
+										"link",
+										"1",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(204); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/joueur/link/1/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"joueur",
+										"link",
+										"1",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Deleted Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/joueur/link/1/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"joueur",
+										"link",
+										"1",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET All Joueur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b9e4ae-9456-487f-8111-1f970a431a81",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([",
+									"    {",
+									"        \"numero_joueur\": 3,",
+									"        \"nom_joueur\": \"Germon\",",
+									"        \"prenom_joueur\": \"Paul\",",
+									"        \"pseudonyme\": \"le boss\"",
+									"    },",
+									"    {",
+									"        \"numero_joueur\": 2,",
+									"        \"nom_joueur\": \"Herrero\",",
+									"        \"prenom_joueur\": \"Victor\",",
+									"        \"pseudonyme\": \"ender\"",
+									"    },",
+									"    {",
+									"        \"numero_joueur\": 4,",
+									"        \"nom_joueur\": \"Jacobi\",",
+									"        \"prenom_joueur\": \"Otavio\",",
+									"        \"pseudonyme\": \"bidule\"",
+									"    },",
+									"    {",
+									"        \"numero_joueur\": 1,",
+									"        \"nom_joueur\": \"Mirande\",",
+									"        \"prenom_joueur\": \"Julien\",",
+									"        \"pseudonyme\": \"zayrrox\"",
+									"    },",
+									"    {",
+									"        \"numero_joueur\": 5,",
+									"        \"nom_joueur\": \"Piere\",",
+									"        \"prenom_joueur\": \"Pedro\",",
+									"        \"pseudonyme\": \"collectionneur\"",
+									"    }]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/joueur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Collectionneurs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b9e4ae-9456-487f-8111-1f970a431a81",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([{",
+									"        \"numero_joueur\": 5,",
+									"        \"nom_joueur\": \"Piere\",",
+									"        \"prenom_joueur\": \"Pedro\",",
+									"        \"pseudonyme\": \"collectionneur\"",
+									"    }]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/joueur/collectionneurs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur",
+								"collectionneurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST New Joueur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a29f767-93d3-4ad7-871c-2aa13272ef39",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(201); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"numero_joueur\": 6,",
+									"        \"nom_joueur\": \"Jaune\",",
+									"        \"prenom_joueur\": \"Piere\",",
+									"        \"pseudonyme\": \"Toto\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nom_joueur\": \"Jaune\",\n\t\"prenom_joueur\": \"Piere\",\n\t\"pseudonyme\": \"Toto\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/joueur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Joueur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bbe16559-42f7-4ed8-bd03-54c61f82b4b8",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"numero_joueur\": 6,",
+									"    \t\"nom_joueur\": \"Jaune\",",
+									"    \t\"prenom_joueur\": \"Piere\",",
+									"    \t\"pseudonyme\": \"Toto\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/joueur/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Joueur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd7249bf-0fdd-4553-8937-a6c9281290a5",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"numero_joueur\": 6,",
+									"    \t\"nom_joueur\": \"Jaunes\",",
+									"    \t\"prenom_joueur\": \"Piere\",",
+									"    \t\"pseudonyme\": \"Toto\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nom_joueur\": \"Jaunes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/joueur/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Joueur Updated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f2f9213-5794-4b0c-8512-44fc4a2b4143",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"numero_joueur\": 6,",
+									"    \t\"nom_joueur\": \"Jaunes\",",
+									"    \t\"prenom_joueur\": \"Piere\",",
+									"    \t\"pseudonyme\": \"Toto\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/joueur/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Joueur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33a70d96-3cda-4f54-b9cf-495ab0a061d0",
+								"exec": [
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(204); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/joueur/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Deleted Joueur",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "635668d3-d78d-4100-a514-d85880cb112f",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(404); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/joueur/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"joueur",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "deck",
+			"item": [
+				{
+					"name": "carte",
+					"item": [
+						{
+							"name": "GET All Deck Links",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql([",
+											"    {",
+											"        \"numero_carte\": 4,",
+											"        \"numero_deck\": 1",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 3,",
+											"        \"numero_deck\": 2",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 5,",
+											"        \"numero_deck\": 2",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 6,",
+											"        \"numero_deck\": 3",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 7,",
+											"        \"numero_deck\": 3",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 1,",
+											"        \"numero_deck\": 4",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 2,",
+											"        \"numero_deck\": 4",
+											"    },",
+											"    {",
+											"        \"numero_carte\": 3,",
+											"        \"numero_deck\": 4",
+											"    }",
+											"]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deck/link",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deck",
+										"link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Complete Deck",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"    \"numero_deck\": 2,",
+											"    \"nom_deck\": \"Sort Noir\",",
+											"    \"cartes\": [",
+											"        {",
+											"            \"numero_carte\": 3,",
+											"            \"description_carte\": \"Sacrifie une bête\",",
+											"            \"type_carte\": \"sacrifice\",",
+											"            \"titre_carte\": \"Sataniste\",",
+											"            \"famille_carte\": \"rouge\",",
+											"            \"image_carte\": \"https://pm1.narvii.com/6991/ea1baf640f021755119862f29850e8f4e1f0f4bbr1-1344-2048v2_hq.jpg\"",
+											"        },",
+											"        {",
+											"            \"numero_carte\": 5,",
+											"            \"description_carte\": \"Va au cimetiere\",",
+											"            \"type_carte\": \"movement\",",
+											"            \"titre_carte\": \"Fossoyeur\",",
+											"            \"famille_carte\": \"jaune\"",
+											"        }",
+											"    ]",
+											"});",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deck/2/carte",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deck",
+										"2",
+										"carte"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST New link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(201); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_carte\": 4,",
+											"        \"numero_deck\": 2",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deck/link/2/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deck",
+										"link",
+										"2",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Single Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"const body = pm.response.json();",
+											"",
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"pm.test('Body is correct', function () {",
+											"    pm.expect(body).to.eql({",
+											"        \"numero_carte\": 4,",
+											"        \"numero_deck\": 2",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deck/link/2/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deck",
+										"link",
+										"2",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(204); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deck/link/2/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deck",
+										"link",
+										"2",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Deleted Link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "05cbe6dc-9f50-413b-93af-a6db6e56dcad",
+										"exec": [
+											"pm.test('Request succeds', function () { ",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deck/link/2/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deck",
+										"link",
+										"2",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET All Deck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b9e4ae-9456-487f-8111-1f970a431a81",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([{",
+									"        \"numero_deck\": 1,",
+									"        \"nom_deck\": \"Le grand Pikachu\"",
+									"    },",
+									"    {",
+									"        \"numero_deck\": 2,",
+									"        \"nom_deck\": \"Sort Noir\"",
+									"    },",
+									"    {",
+									"        \"numero_deck\": 3,",
+									"        \"nom_deck\": \"Vampire\"",
+									"    },",
+									"    {",
+									"        \"numero_deck\": 4,",
+									"        \"nom_deck\": \"Medieval\"",
+									"    }]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deck",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST New Deck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a29f767-93d3-4ad7-871c-2aa13272ef39",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(201); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"\t    \"numero_deck\": 5,",
+									"\t    \"nom_deck\": \"Teste Deck\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nom_deck\": \"Teste Deck\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/deck",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Deck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bbe16559-42f7-4ed8-bd03-54c61f82b4b8",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"\t    \"numero_deck\": 5,",
+									"\t    \"nom_deck\": \"Teste Deck\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deck/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Deck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd7249bf-0fdd-4553-8937-a6c9281290a5",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"\t    \"numero_deck\": 5,",
+									"\t    \"nom_deck\": \"Test Deck\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nom_deck\": \"Test Deck\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/deck/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Deck Updated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f2f9213-5794-4b0c-8512-44fc4a2b4143",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"\t    \"numero_deck\": 5,",
+									"\t    \"nom_deck\": \"Test Deck\"",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deck/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Deck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33a70d96-3cda-4f54-b9cf-495ab0a061d0",
+								"exec": [
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(204); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deck/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Deleted Deck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "635668d3-d78d-4100-a514-d85880cb112f",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(404); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/deck/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"deck",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "partie",
+			"item": [
+				{
+					"name": "GET All Partie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8b9e4ae-9456-487f-8111-1f970a431a81",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body is correct', function () {",
+									"    pm.expect(body).to.eql([",
+									"    {",
+									"        \"id_partie\": 1,",
+									"        \"numero_partie\": 1,",
+									"        \"lieu_partie\": \"Bordeaux\",",
+									"        \"date_partie\": \"2018-12-20T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"double elimination\",",
+									"        \"pseudonyme_adversaire\": \"le boss\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 1,",
+									"        \"numero_deck\": 4",
+									"    },",
+									"    {",
+									"        \"id_partie\": 2,",
+									"        \"numero_partie\": 1,",
+									"        \"lieu_partie\": \"Bordeaux\",",
+									"        \"date_partie\": \"2018-12-20T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"double elimination\",",
+									"        \"pseudonyme_adversaire\": \"zayrrox\",",
+									"        \"resultat\": false,",
+									"        \"numero_joueur\": 3,",
+									"        \"numero_deck\": 2",
+									"    },",
+									"    {",
+									"        \"id_partie\": 3,",
+									"        \"numero_partie\": 2,",
+									"        \"lieu_partie\": \"Talence\",",
+									"        \"date_partie\": \"2019-11-28T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"toutes rondes\",",
+									"        \"pseudonyme_adversaire\": \"zayrrox\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 2,",
+									"        \"numero_deck\": 1",
+									"    },",
+									"    {",
+									"        \"id_partie\": 4,",
+									"        \"numero_partie\": 2,",
+									"        \"lieu_partie\": \"Talence\",",
+									"        \"date_partie\": \"2019-11-28T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"toutes rondes\",",
+									"        \"pseudonyme_adversaire\": \"ender\",",
+									"        \"resultat\": false,",
+									"        \"numero_joueur\": 1,",
+									"        \"numero_deck\": 1",
+									"    },",
+									"    {",
+									"        \"id_partie\": 5,",
+									"        \"numero_partie\": 3,",
+									"        \"lieu_partie\": \"Porto Alegre\",",
+									"        \"date_partie\": \"2018-07-07T22:00:00.000Z\",",
+									"        \"type_tournoi\": \"double elimination\",",
+									"        \"pseudonyme_adversaire\": \"mucilera\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 4,",
+									"        \"numero_deck\": 3",
+									"    }",
+									"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/partie",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST New Partie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1a29f767-93d3-4ad7-871c-2aa13272ef39",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(201); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"id_partie\": 6,",
+									"        \"numero_partie\": 7,",
+									"        \"lieu_partie\": \"Bordeaux\",",
+									"        \"date_partie\": \"2016-12-19T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"mata mata\",",
+									"        \"pseudonyme_adversaire\": \"le boss\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 3,",
+									"        \"numero_deck\": 2",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"numero_partie\": 7,\n        \"lieu_partie\": \"Bordeaux\",\n        \"date_partie\": \"2016-12-20\",\n        \"type_tournoi\": \"mata mata\",\n        \"pseudonyme_adversaire\": \"le boss\",\n        \"resultat\": true,\n        \"numero_joueur\": 3,\n        \"numero_deck\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/partie",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Partie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bbe16559-42f7-4ed8-bd03-54c61f82b4b8",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"id_partie\": 6,",
+									"        \"numero_partie\": 7,",
+									"        \"lieu_partie\": \"Bordeaux\",",
+									"        \"date_partie\": \"2016-12-19T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"mata mata\",",
+									"        \"pseudonyme_adversaire\": \"le boss\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 3,",
+									"        \"numero_deck\": 2",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/partie/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Partie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd7249bf-0fdd-4553-8937-a6c9281290a5",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"id_partie\": 6,",
+									"        \"numero_partie\": 7,",
+									"        \"lieu_partie\": \"Bordeaux\",",
+									"        \"date_partie\": \"2016-12-19T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"round\",",
+									"        \"pseudonyme_adversaire\": \"le boss\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 3,",
+									"        \"numero_deck\": 2",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"type_tournoi\": \"round\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/partie/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET One Partie Updated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f2f9213-5794-4b0c-8512-44fc4a2b4143",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(200); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"        \"id_partie\": 6,",
+									"        \"numero_partie\": 7,",
+									"        \"lieu_partie\": \"Bordeaux\",",
+									"        \"date_partie\": \"2016-12-19T23:00:00.000Z\",",
+									"        \"type_tournoi\": \"round\",",
+									"        \"pseudonyme_adversaire\": \"le boss\",",
+									"        \"resultat\": true,",
+									"        \"numero_joueur\": 3,",
+									"        \"numero_deck\": 2",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/partie/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Partie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33a70d96-3cda-4f54-b9cf-495ab0a061d0",
+								"exec": [
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(204); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/partie/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Deleted Partie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "635668d3-d78d-4100-a514-d85880cb112f",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Request succeds', function () { ",
+									"    pm.response.to.have.status(404); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/partie/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"partie",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "exemplaire",
+			"item": [
+				{
+					"name": "POST new exemplaire",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a08a1a85-2c13-4230-9c9f-d75baf69ec79",
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test('Carte status created', function () { ",
+									"    pm.response.to.have.status(201); ",
+									"});",
+									"",
+									"pm.test('Body response is correct', function () {",
+									"    pm.expect(body).to.eql({",
+									"    \"numero_exemplaire\": 51,",
+									"    \"version\": 3,",
+									"    \"date_impression\": \"1989-12-31T23:00:00.000Z\",",
+									"    \"tirage\": 5,",
+									"    \"cote\": \"440\",",
+									"    \"rendu\": \"dore\",",
+									"    \"numero_carte\": 1",
+									"});",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"version\": 3,\n\t\"date_impression\": \"1990-01-01\",\n\t\"tirage\": 5,\n\t\"cote\": 440,\n\t\"rendu\": \"dore\",\n\t\"numero_carte\": 1\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/exemplaire",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"exemplaire"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
